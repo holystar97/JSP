@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="UTF-8">
+<title>회원 가입 </title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table#member_join_tbl{
+	width:800px;
+	
+}
+
+span.req-item{
+color:red;}
+
+
+</style>
+
+
+<!-- bootstrap CSS -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- bootstrap javascript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<div id="wrap" class="mx-auto" style="width:800px">
+	<!-- 회원가입폼 -->
+	<form id="member_form" name="member_form" method="post" action="member_join_proc.do">
+	
+		<table id="member_join_tbl" class="table table-bordered">
+			<!-- 아이디 -->
+			<tr>
+				<td>
+					<label id="memberId"><span class="req-item">*</span>아이디 : </label>
+				</td>
+				<td>
+					<input type="text" id="memberId" name="memberId" pattern="[a-zA-Z]{1}\w{7,19}" title="아이디는 영문으로 시작하며 영문/숫자 조합하여 8~20자로 입력하십시오" 
+					required size="25" maxlength="20" placeholder="아이디를 입력하세요 " class="form-control" />
+					
+				</td>
+			</tr>
+			
+			<!-- 패스워드 -->
+		
+			<tr>
+			
+				<td>
+					<label id="memberPassword"><span class="req-item">* </span>패스워드 : </label>
+				</td>
+			
+				<td>
+					<input type="text" id="memberPassword" name="memberPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}" title="패쓰워드는 영문대소문자/특수문자/숫자 조합하여 8~20자로 입력하십시오" 
+					required size="25" maxlength="20" placeholder="패스워드를 입력하세요" class="form-control"/>
+				</td>
+			
+			
+			</tr>
+		
+			<!-- 이름 -->
+			
+			<tr>
+				<td>
+					<label id="memberName"><span class="req-item">* </span> 이름: </label>
+				</td>
+				
+				<td>
+					<input type="text" id="memberName" name="memberName" pattern="[가-힣]{2,25}" title="이름은 한글로 입력하십시오"
+					required maxlength="25" placeholder="이름을 입력하세요" class="form-control"/>
+				</td>
+			</tr>
+		
+			<!-- 성별 -->
+			
+			<tr>
+				<td>
+					<label id="memberGender"><span class="req-item">* </span>성별 :  </label>
+				</td>
+				<td>
+				<div class="row">
+				 <div class="custom-control custom-radio col-sm-2 ml-3" >
+					
+					<input type="radio" id="memberGenderMale" name="memberGender" title="성별을 입력하십시오" required class="custom-control-input"/>
+					<label class="custom-control-label" for="memberGenderMale">남</label>
+					
+					
+				</div>
+				<div class="custom-control custom-radio">
+					
+					<input type="radio" id="memberGenderFemale" name="memberGender" title="성별을 입력하십시오" required class="custom-control-input"/>
+					<label class="custom-control-label" for="memberGenderFemale">여</label>
+					 
+					  
+				</div>
+				</div>
+					
+				</td>
+			
+			</tr>
+		
+			<!-- 이메일 -->
+		
+		
+			<tr>
+			
+				<td>
+					<label for="memberEmail"><span class="req-item">* </span>이메일: </label>
+				</td>
+				
+				<td>
+					<input type="email" id="memberEmail" name="memberEmail" pattern="[a-zA-Z0-9_+.-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" title="이메일을 입력하십시오"
+					required maxlength="50" placeholder="이메일을 입력하세요" class="form-control"/>
+				</td>
+			
+			
+			</tr>
+			
+		
+			<!-- 연락처 -->
+		
+		
+			<tr>
+				<td>
+					<label for="memberPhone"><span class="req-item">* </span>연락처: </label>
+				</td>
+				
+				<td>
+					<input type="text" id="memberPhone" name="memberPhone" pattern="01\d{1}-\d{3,4}-\d{4}" title="전화번호는 우측 예시와 같이 입력하십시오"
+					required placeholder="전화번호는 예시와 같이 입력하십시오" class="form-control"/> ex)010-1234-5678
+				</td>
+			
+			</tr>
+			
+			
+			<!-- 생년월일 -->
+			
+			<tr>
+			
+				<td>
+					<label for="memberBirth"><span class="req-item">* </span>생년월일: </label>
+				</td>
+				
+				<td>
+					<input type="text" id="memberBirth" name="memberBirth" pattern="\d{4}-\d{2}-\d{2}" title="생년월일을 입력하십시오"
+					required placeholder="생년월일을 입력하십시오" class="form-control"/>
+				</td>
+			
+			</tr>
+			
+			<!-- 우편번호 -->
+
+			<tr>
+			
+				<td>
+					<label for="memberZip">우편 번호: </label>
+				</td>
+				
+				<td>
+					<div class="row">
+						<div class="col-sm-3">
+							<input type="text" id="memberZip" name="memberZip" pattern="\d{5}" title="우편번호를 입력하세요"
+							maxlength="5" class="form-control"/>
+						</div>
+						
+						<div class="col-sm-9">
+							<input type="button" value="주소 검색 " class="btn btn-primary"/>
+						
+						</div>
+					</div>
+				</td>
+		
+			</tr>
+			
+			<!-- 기본 주소 -->
+			<tr>
+			
+				<td>
+					<label for="memberAddressBasic"> 기본주소:</label>
+				</td>
+				<td>
+					<input type="text" id="memberAddressBasic" name="memberAddressBasic" pattern="[\w | \W | 가-힣 | / | - | (  |  ) | ,]{2,200}" title="기본주소를 입력하십시오"
+					maxlength="200" class="form-control"/>
+				</td>
+			
+			</tr>
+					
+		
+		
+		<!-- 상세 주소 -->
+			<tr>
+			
+				<td>
+					<label for="memberAddressDetail"> 상세주소:</label>
+				</td>
+				<td>
+					<input type="text" id="memberAddressDetail" name="memberAddressDetail" pattern="[\w | \W | 가-힣 | / | -]{2,100}" title="상세주소를 입력하십시오"
+					maxlength="200" class="form-control"/>
+				</td>
+			
+			</tr>
+	
+		
+		</table>	
+	
+		<!-- 전송 취소 -->
+		<div class="mx-auto" style="width:130px">
+		<button type="submit" class="btn btn-primary">전송</button>
+		<button type="reset" class="btn btn-primary">취소</button>
+		</div>
+	
+	</form>
+	
+	<!-- //회원가입폼  -->
+	</div>
+	
+</body>
+</html>
