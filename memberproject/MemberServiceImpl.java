@@ -1,0 +1,39 @@
+package com.javatea.member_project2.service;
+
+import com.javatea.member_project2.dao.MemberDAO;
+import com.javatea.member_project2.dao.MemberDAOImpl;
+import com.javatea.member_project2.domain.MemberVO;
+
+public class MemberServiceImpl implements MemberService {
+
+	//impl : 구현해주겟다는 의미 
+	//DAO 
+	private MemberDAO dao= MemberDAOImpl.getInstance();
+	
+	@Override
+	public boolean insertMember(MemberVO member) throws Exception {
+		// TODO Auto-generated method stub
+
+		
+		// 트랜잭션 : 데이터의 보안적으로 처리하는 일의 단위 / commit / data control / rollback/ 취소 ,넣는것 
+		
+		boolean flag=false;
+		
+		if(dao.insertMember(member)==true) {
+		
+			flag=true;
+		}else {
+			flag=false;
+		}
+		return flag;
+	
+
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
