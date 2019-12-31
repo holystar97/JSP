@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.javatea.member_project2.domain.MemberVO;
 import com.javateam.member_project2.util.DbUtil;
@@ -143,6 +145,94 @@ public final class MemberDAOImpl implements MemberDAO { // 이거슨 상속 금�
 		return member;
 		
 		
+	}
+	@Override
+	public List<MemberVO> getAllMembers() throws Exception {
+		// TODO Auto-generated method stub
+		
+		List<MemberVO> members=new ArrayList<>();
+		
+		
+		//MemberVO member=new MemberVO();  // 중복 회원 조회 가 안됨 
+		
+		
+		MemberVO member=null; // 중복 회원 조회 방지 ! ! 
+		
+		// 방지법 ) while 문 내에서 회원 정보 객체를 생성하자 
+		
+		// SQL
+		String sql="SELECT * FROM member_tbl ";
+
+		// DB 연결 객체 생성 
+		Connection con= DbUtil.connect();
+		
+		//SQL 처리 객체
+		
+		PreparedStatement pstmt=null;
+		
+		//SQL 결과셋 객체
+		
+		ResultSet rs= null;
+		
+
+		try {
+			//sql 구문 예비 처리 (준비)
+			pstmt=con.prepareStatement(sql);
+			//SQL 인자 처리 
+			rs=pstmt.executeQuery();
+			//SQL 실행 을 함과 동시에 결과 셋이 엇어지는것입니다.
+			// insert update deltet는 update로 하고 
+			// 나머지는 execute로 한다.
+			
+			// 결과셋 -> vo 
+			while (rs.next()) {
+				
+				// 중복 회원 조회 방지 대책 
+				member=new MemberVO();
+				//할 때 마다 새로 객체를 생성하니까 할 때마다 refresh 를 해주는게 되는거여서 
+				// 중복 조회가 방지가 된다 -> 만약 이 구문을 빼주면 맨 마지막 고객만 계속 횟수만큼 나옵니다아
+				
+				
+				
+//				member.setMemberId(rs.getString(1));
+				member.setMemberId(rs.getString("ID"));
+				member.setMemberPassword(rs.getString("PW"));
+				member.setMemberName(rs.getString("NAME"));
+				member.setMemberGender(rs.getString("GENDER").charAt(0));
+				member.setMemberEmail(rs.getString("EMAIL"));
+				member.setMemberPhone(rs.getString("PHONE"));
+				member.setMemberZip(rs.getString("ZIP1"));
+				member.setMemberAddress(rs.getString("ADDRESS1"));
+				member.setMemberBirth(rs.getDate("BIRTHDAY"));
+				
+				
+				//개별 회원정보 -> 전체 회원 정보 (리스트)
+				members.add(member);
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("getAllMemebers SE:");
+			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("getAllMembers E: ");
+			e.printStackTrace();
+		}finally {
+			//자원 반납 
+			DbUtil.close(con, pstmt, rs);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return members;
 	}
 
 }
