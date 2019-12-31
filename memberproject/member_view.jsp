@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%--jstl 양식입니다. format을 가져오는 것을 해주고잇습니다.- 생년월일 보려구용  --%>
+    
+    
 <!DOCTYPE html>
 <html lang="ko-kr">
 <head>
@@ -153,7 +158,8 @@ color:red;}
 					<label for="memberBirth"><span class="req-item">* </span>생년월일: </label>
 				</td>
 				
-				<td>${member.memberBirth}
+				<td><fmt:formatDate value="${member.memberBirth}" pattern="yyyy년 MM월  dd일"/>
+					<%--대소문자 민감하니까 조심해서 치셔야합니다아 , jstl taglibrary 이용했습니다. --%>
 					<%-- <input type="text" id="memberBirth" name="memberBirth"
 					 class="form-control" value="${member.memberBirth}"/>--%>
 				</td>
@@ -168,18 +174,15 @@ color:red;}
 					<label for="memberZip">우편 번호: </label>
 				</td>
 				
-				<td>
-					<div class="row">
+				<td>${member.memberZip}
+					<%-- -<div class="row">
 						<div class="col-sm-3">
-							<input type="text" id="memberZip" name="memberZip" pattern="\d{5}" title="우편번호를 입력하세요"
-							maxlength="5" class="form-control" readonly/>
+							<input type="text" id="memberZip" name="memberZip" 
+							maxlength="5" class="form-control" readonly value="${member.memberZip}"/>
 						</div>
 						
-						<div class="col-sm-9">
-							<input type="button" value="주소 검색 " id ="address_search_btn" class="btn btn-primary" onclick="getPostcodeAddress()"/>
 						
-						</div>
-					</div>
+					</div>--%>
 				</td>
 		
 			</tr>
@@ -190,9 +193,9 @@ color:red;}
 				<td>
 					<label for="memberAddressBasic"> 기본주소:</label>
 				</td>
-				<td>
-					<input type="text" id="memberAddressBasic" name="memberAddressBasic" pattern="[\w | \W | 가-힣 | / | - | (  |  ) | ,]{2,200}" title="기본주소를 입력하십시오"
-					maxlength="200" class="form-control" readonly/>
+				<td>${addrBasic}
+					<%-- <input type="text" id="memberAddressBasic" name="memberAddressBasic" pattern="[\w | \W | 가-힣 | / | - | (  |  ) | ,]{2,200}" title="기본주소를 입력하십시오"
+					maxlength="200" class="form-control" readonly/>--%>
 				</td>
 			
 			</tr>
@@ -205,9 +208,9 @@ color:red;}
 				<td>
 					<label for="memberAddressDetail"> 상세주소:</label>
 				</td>
-				<td>
-					<input type="text" id="memberAddressDetail" name="memberAddressDetail" pattern="[\w | \W | 가-힣 | / | -]{2,100}" title="상세주소를 입력하십시오"
-					maxlength="200" class="form-control"/>
+				<td>${addrDetail}
+					<%-- <input type="text" id="memberAddressDetail" name="memberAddressDetail" pattern="[\w | \W | 가-힣 | / | -]{2,100}" title="상세주소를 입력하십시오"
+					maxlength="200" class="form-control"/> --%>
 				</td>
 			
 			</tr>
