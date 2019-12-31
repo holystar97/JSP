@@ -1,5 +1,7 @@
 package com.javatea.member_project2.service;
 
+import java.util.List;
+
 import com.javatea.member_project2.dao.MemberDAO;
 import com.javatea.member_project2.dao.MemberDAOImpl;
 import com.javatea.member_project2.domain.MemberVO;
@@ -41,6 +43,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 	
 		return dao.getMember(memberId);
+	}
+
+	@Override
+	public List<MemberVO> getAllMembers() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getAllMembers();
 	}
 
 }
