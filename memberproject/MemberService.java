@@ -1,5 +1,7 @@
 package com.javatea.member_project2.service;
 
+import java.util.List;
+
 import com.javatea.member_project2.domain.MemberVO;
 
 public interface MemberService {
@@ -27,6 +29,14 @@ public interface MemberService {
 	
 	MemberVO getMember(String memberId) throws Exception;
 	
+	/**
+	 * 전체 회원정보 조회
+	 * @return 전체 회원 정보 (리스트 형태)
+	 * @throws Exception
+	 *
+	 * */
+	
+	List<MemberVO> getAllMembers() throws Exception;
 	
 	
 }
