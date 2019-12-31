@@ -2,6 +2,7 @@ package com.javatea.member_project2.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.javatea.member_project2.domain.MemberVO;
@@ -62,9 +63,7 @@ public final class MemberDAOImpl implements MemberDAO { // 이거슨 상속 금�
 				System.out.println("회원정보 저장에 실패하였습니다.");
 			}
 			
-			
-			
-			
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("insertMember SE: ");
@@ -74,14 +73,76 @@ public final class MemberDAOImpl implements MemberDAO { // 이거슨 상속 금�
 			e.printStackTrace();
 		}finally {
 			// 자원 반납해주는 부분이 필요하다 
+			DbUtil.close(con, pstmt, null);
+			// insert는 집어넣기 만 하는애여서 결과셋 이 필요가 없다 
 			
 		}
 			
-		
-		
-		
 		return flag;
 
+	}
+	@Override
+	public MemberVO getMember(String memberId) {//throws Exception {
+		// TODO Auto-generated method stub
+		// 결과값 -> return null 은 결과 값을 처리 안해주고 넘어가는거이고 null pointer exception이 날 확률이 줄어듬 - 데이터가 없다는 문제 
+		MemberVO member=new MemberVO();
+		// SQL
+		String sql="SELECT * FROM member_tbl "
+//				+"WHERE memberId='"+memberId+"'"
+				+"WHERE ID=?";
+		
+		// DB 연결 객체 생성 
+		Connection con= DbUtil.connect();
+		
+		//SQL 처리 객체
+		
+		PreparedStatement pstmt=null;
+		
+		//SQL 결과셋 객체
+		
+		ResultSet rs= null;
+		
+		try {
+			//sql 구문 예비 처리 (준비)
+			pstmt=con.prepareStatement(sql);
+			//SQL 인자 처리 
+			pstmt.setString(1, memberId);
+			//SQL 실행 을 함과 동시에 결과 셋이 엇어지는것입니다.
+			// insert update deltet는 update로 하고 
+			// 나머지는 execute로 한다 
+			rs=pstmt.executeQuery();
+			
+			// 결과셋 -> vo 
+			if (rs.next()) {
+//				member.setMemberId(rs.getString(1));
+				member.setMemberId(rs.getString("ID"));
+				member.setMemberPassword(rs.getString("PW"));
+				member.setMemberName(rs.getString("NAME"));
+				member.setMemberGender(rs.getString("GENDER").charAt(0));
+				member.setMemberEmail(rs.getString("EMAIL"));
+				member.setMemberPhone(rs.getString("PHONE"));
+				member.setMemberZip(rs.getString("ZIP1"));
+				member.setMemberAddress(rs.getString("ADDRESS1"));
+				member.setMemberBirth(rs.getDate("BIRTHDAY"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("getMemeber SE:");
+			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("getMember E: ");
+			e.printStackTrace();
+		}finally {
+			//자원 반납 
+			DbUtil.close(con, pstmt, rs);
+		}
+		
+		
+		return member;
+		
+		
 	}
 
 }
