@@ -40,9 +40,23 @@ public class MemberViewProcAction extends HttpServlet {
 		MemberService service=new MemberServiceImpl();
 		MemberVO member=null;
 		String returnPath="";
-		
+		String addr[] =null; // 주소 분리를 위한 변수
+		String addrBasic =""; // 기본주소
+		String addrDetail=""; // 상세 주소 
 		try {
 			member=service.getMember(id);
+			
+			if(member.getMemberAddress()!=null && 
+					!member.getMemberAddress().trim().contentEquals("")) {
+		
+				addr =member.getMemberAddress().split("\\*");
+				addrBasic =addr[0];
+				addrDetail= addr[1];	
+			}
+			
+			// 주소 : 기본 주소 / 상세 주소 분리
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,6 +64,10 @@ public class MemberViewProcAction extends HttpServlet {
 		
 		//인자 생성
 		request.setAttribute("member", member);
+		request.setAttribute("addrBasic", addrBasic);
+		request.setAttribute("addrDetail", addrDetail);
+		// 주소 : 기본 주소 / 상세 주소 분리
+		
 		
 		//페이지 이동
 		returnPath="/member/member_view.jsp";
