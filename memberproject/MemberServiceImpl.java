@@ -36,4 +36,11 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public MemberVO getMember(String memberId) throws Exception {
+		// TODO Auto-generated method stub
+	
+		return dao.getMember(memberId);
+	}
+
 }
