@@ -54,6 +54,21 @@ public class DbUtil {
 	
 	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
 		
+		// 닫는 것은 역순으로 하는 것이 좋습니다아
+		
+		//if(rs.isClosed()==false) rs.close();
+
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close(); // 생성이 되어있는 상태니까 닫아주기 
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
 		
 	}
 	
